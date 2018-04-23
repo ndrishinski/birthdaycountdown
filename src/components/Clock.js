@@ -77,6 +77,11 @@ class Clock extends Component {
         }, 1000);
     }
 
+    componentWillUnmount() {
+        console.log('trying to clear this thing');
+        clearInterval(this.timer);
+    }
+
     render() {  
         const data = this.state.timeRemaining
         return (
