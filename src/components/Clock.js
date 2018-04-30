@@ -9,7 +9,7 @@ class Clock extends Component {
         this.timer = 0
         this.birthday = props.birthdayFormState.startDate.toString();
         this.getTimeRemaining = this.getTimeRemaining.bind(this);
-        this.noBirthYear = new Date(this.birthday).getFullYear() == new Date().getFullYear();
+        this.noBirthYear = new Date(this.birthday).getFullYear() == new Date().getFullYear()
 
         this.state = {
             timeRemaining: this.getTimeRemaining(props.birthdayFormState.startDate.toString())
@@ -42,8 +42,7 @@ class Clock extends Component {
             else if (birthDay < currentDay) {
                 //2. day is B4 the current day
                 bday.setFullYear(today.getFullYear() + 1);
-            }
-            else if (birthDay == currentDay) {
+            } else if (birthDay == currentDay) {
                 return 0
             }
         }
@@ -82,16 +81,15 @@ class Clock extends Component {
     }
 
     componentWillUnmount() {
-        console.log('trying to clear this thing');
         clearInterval(this.timer);
-    }
+    }    
 
     renderMessage = function() {
         if(this.noBirthYear) {
-        return (
-            <h4> Until your birthday </h4>
-        )
-    } 
+            return (
+                <h4>until your birthday!</h4>
+            )
+        }
         return (
             <h4>remaining until you are {this.getAge()}</h4>
         )
@@ -101,9 +99,13 @@ class Clock extends Component {
         const data = this.state.timeRemaining
         return (
             <div className="countdown">
-                {
-                    this.state.timeRemaining == 0 ?
-                        <h1>Happy Birthday!</h1>
+            {
+                this.state.timeRemaining == 0 ?
+                    <div className="message-container">
+                        <p className="message-container__title">Countdown Complete</p>
+                        <p className="message-container__message">HAPPY BIRTHDAY!</p>
+                    </div>
+                   
                     :
                     <div>
                         <div>
@@ -113,12 +115,13 @@ class Clock extends Component {
                                 <li>MINS<p>{data.minutes}</p></li>
                                 <li>SECS<p>{data.seconds}</p></li>
                             </ul>
+
                         </div>
                         <div>
                             {this.renderMessage()}
                         </div>
                     </div>
-                }
+            }
             </div>
         )
     }
